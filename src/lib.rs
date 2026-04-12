@@ -1,10 +1,4 @@
-#![feature(
-    concat_idents,
-    proc_macro_hygiene
-)]
-#![allow(
-    unused_macros
-)]
+#![feature(proc_macro_hygiene)]
 
 use skyline::{hook, install_hook};
 
