@@ -47,26 +47,20 @@ if macros::is_excute(fighter) {
 */
 
 unsafe extern "C" fn game_attacks4(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 3.0);
+    frame(agent.lua_state_agent, 30.0);
     if macros::is_excute(agent) {
+        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
         WorkModule::on_flag(agent.module_accessor, *FIGHTER_STATUS_ATTACK_FLAG_START_SMASH_HOLD);
     }
-    frame(agent.lua_state_agent, 10.0);
-    for _ in 0..5 {
-        if macros::is_excute(agent) {
-            macros::ATTACK(agent, 0, 0, Hash40::new("sword1"), 15.0, 361, 73, 0, 65, 3.5, 1.0, 0.0, 2.0, None, None, None, 0.1, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-            macros::ATTACK(agent, 1, 0, Hash40::new("armr"), 15.0, 361, 73, 0, 65, 3.0, 0.0, 1.0, 0.0, None, None, None, 0.1, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-            macros::ATTACK(agent, 2, 0, Hash40::new("bust"), 15.0, 361, 73, 0, 65, 2.0, 0.0, 0.0, 0.0, None, None, None, 0.1, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-            macros::ATTACK(agent, 3, 0, Hash40::new("sword1"), 15.0, 361, 73, 0, 65, 3.5, 1.0, 0.0, 7.3, None, None, None, 0.1, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_F, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_SWORD);
-            AttackModule::set_attack_height_all(agent.module_accessor, smash::app::AttackHeight(*ATTACK_HEIGHT_HIGH), false);
-        }
-        wait(agent.lua_state_agent, 2.0);
-        if macros::is_excute(agent) {
-        AttackModule::clear_all(agent.module_accessor);
-        }
-    }
-    frame(agent.lua_state_agent, 20.0);
+    frame(agent.lua_state_agent, 32.0);
     if macros::is_excute(agent) {
+        macros::ATTACK(agent, 0, 0, Hash40::new("haver"), 14.6, 15, 140, 0, 80, 5.0, 0.0, 6.5, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_OBJECT);
+        macros::ATTACK(agent, 1, 0, Hash40::new("haver"), 14.6, 15, 140, 0, 80, 3.0, 0.0, 1.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_OBJECT);
+    }
+
+    frame(agent.lua_state_agent, 40.0);
+    if macros::is_excute(agent) {
+        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_none") as i64);
         AttackModule::clear_all(agent.module_accessor);
     }
 }
@@ -80,9 +74,9 @@ unsafe extern "C" fn effect_attacks4(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         macros::FOOT_EFFECT(agent, Hash40::new("sys_atk_smoke"), Hash40::new("top"), 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, true);
     }
-    frame(agent.lua_state_agent, 9.0);
+    frame(agent.lua_state_agent, 31.0);
     if macros::is_excute(agent) {
-        macros::AFTER_IMAGE4_ON_arg29(agent, Hash40::new("tex_lucina_sword1"), Hash40::new("tex_lucina_sword2"), 6, Hash40::new("sword1"), 0, 0, 1.65, Hash40::new("sword1"), -0.0, -0.0, 12.4, true, Hash40::new("lucina_sword"), Hash40::new("sword1"), 0, 0, 0, 90, 0, 90, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_ALPHA, 101, *TRAIL_CULL_NONE, 1.2, 0.2);
+        macros::AFTER_IMAGE4_ON_arg29(agent, Hash40::new("tex_murabito_axe1"), Hash40::new("tex_murabito_axe2"), 6, Hash40::new("haver"), 0, 1.5, 3, Hash40::new("haver"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 101, *TRAIL_CULL_NONE, 1.2, 0.2);
     }
     frame(agent.lua_state_agent, 13.0);
     for _ in 0..5 {
@@ -91,21 +85,20 @@ unsafe extern "C" fn effect_attacks4(agent: &mut L2CAgentBase) {
             macros::LAST_EFFECT_SET_RATE(agent, 1.4);
         }
     }
-    frame(agent.lua_state_agent, 17.0);
+    frame(agent.lua_state_agent, 40.0);
     if macros::is_excute(agent) {
         macros::AFTER_IMAGE_OFF(agent, 3);
     }
 }
 
 unsafe extern "C" fn sound_attacks4(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 4.0);
+    frame(agent.lua_state_agent, 30.0);
     if macros::is_excute(agent) {
         macros::STOP_SE(agent, Hash40::new("se_common_smash_start_02"));
     }
-    wait(agent.lua_state_agent, 4.0);
+    wait(agent.lua_state_agent, 38.0);
     if macros::is_excute(agent) {
-        macros::PLAY_SE(agent, Hash40::new("vc_lucina_attack05"));
-        macros::PLAY_SE(agent, Hash40::new("se_lucina_smash_s01"));
+        macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
     }
 }
 
@@ -140,9 +133,17 @@ unsafe extern "C" fn effect_attacks4charge(agent: &mut L2CAgentBase) {
 }
 
 unsafe extern "C" fn sound_attacks4charge(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 2.0);
+    frame(agent.lua_state_agent, 26.0);
     if macros::is_excute(agent) {
         macros::PLAY_SE(agent, Hash40::new("se_common_smash_start_02"));
     }
 }
 
+pub fn install(agent: &mut smashline::Agent) {
+    agent.acmd("game_attacks4", game_attacks4, Priority::Default);
+    agent.acmd("effect_attacks4", effect_attacks4, Priority::Default);
+    agent.acmd("sound_attacks4", sound_attacks4, Priority::Default);
+    agent.acmd("expression_attacks4", expression_attacks4, Priority::Default);
+    agent.acmd("effect_attacks4charge", effect_attacks4charge, Priority::Default);
+    agent.acmd("sound_attacks4charge", sound_attacks4charge, Priority::Default);
+}

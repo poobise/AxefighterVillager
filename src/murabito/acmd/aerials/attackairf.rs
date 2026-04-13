@@ -48,6 +48,7 @@ if macros::is_excute(fighter) {
 
 unsafe extern "C" fn game_attackairf(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
+        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
         WorkModule::on_flag(agent.module_accessor, *FIGHTER_STATUS_ATTACK_AIR_FLAG_ENABLE_LANDING);
     }
     frame(agent.lua_state_agent, 16.0);
@@ -64,6 +65,7 @@ unsafe extern "C" fn game_attackairf(agent: &mut L2CAgentBase) {
         
     frame(agent.lua_state_agent, 24.0);
     if macros::is_excute(agent) {
+        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_none") as i64);
         AttackModule::clear_all(agent.module_accessor);
     }
 }
@@ -80,7 +82,7 @@ unsafe extern "C" fn effect_attackairf(agent: &mut L2CAgentBase) {
 }
 
 unsafe extern "C" fn sound_attackairf(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 15.0);
+    frame(agent.lua_state_agent, 17.0);
     if macros::is_excute(agent) {
         macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
     }
