@@ -1,0 +1,2 @@
+cargo skyline build --release
+%SystemRoot%\explorer.exe "C:\Users\Matthew Tuan\Documents\GitHub\AxefighterVillager\target\aarch64-skyline-switch\release"
