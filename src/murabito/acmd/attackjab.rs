@@ -81,7 +81,8 @@ unsafe extern "C" fn effect_attack11(agent: &mut L2CAgentBase) {
 unsafe extern "C" fn sound_attack11(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 7.0);
     if macros::is_excute(agent) {
-        macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
+        macros::PLAY_SE(agent, Hash40::new("se_common_homerunbat_hit"));
+        //macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
     }
 }
 
