@@ -4,11 +4,13 @@
 pub static mut MARKED_COLORS: [bool; 256] = [false; 256];
 
 mod murabito;
+mod lucina;
 
 #[skyline::main(name = "skyline_rs_template")]
 pub fn main() {
     murabito::install();
-
+    lucina::install();
+    
     unsafe {
         extern "C" {
             fn arcrop_register_event_callback(
