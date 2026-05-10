@@ -8,7 +8,7 @@ use {
     smashline::*,
     smash_script::*
 };
-use super::*;
+//use super::*;
 
 unsafe extern "C" fn game_attackdash(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 9.0);

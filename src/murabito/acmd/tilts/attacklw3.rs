@@ -3,7 +3,8 @@ use {
         lua2cpp::*,
         phx::*,
         app::{sv_animcmd::*, lua_bind::*},
-        lib::lua_const::*
+        lib::lua_const::*,
+        hash40
     },
     smashline::*,
     smash_script::*
@@ -60,6 +61,9 @@ unsafe extern "C" fn game_attacklw3(agent: &mut L2CAgentBase) {
 }
 
 unsafe extern "C" fn effect_attacklw3(agent: &mut L2CAgentBase) {
+    if macros::is_excute(agent) {
+        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
+    }
     frame(agent.lua_state_agent, 5.0);
     if macros::is_excute(agent) {
         macros::AFTER_IMAGE4_ON_arg29(agent, Hash40::new("tex_murabito_axe1"), Hash40::new("tex_murabito_axe2"), 6, Hash40::new("haver"), 0, 1.5, 3, Hash40::new("haver"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 101, *TRAIL_CULL_NONE, 1.2, 0.2);

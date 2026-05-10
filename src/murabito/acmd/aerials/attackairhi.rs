@@ -3,48 +3,12 @@ use {
         lua2cpp::*,
         phx::*,
         app::{sv_animcmd::*, lua_bind::*},
-        lib::lua_const::*
+        lib::lua_const::*,
+        hash40
     },
     smashline::*,
     smash_script::*
 };
-
-/*
-if macros::is_excute(fighter) {
-    macros::ATTACK(fighter, /* dont edit */
-        0, /* id */
-        0, /* part (dont edit)*/
-        Hash40::new("arml"), /* bone */
-        67.0 /* Damage, changed from 12.0 */, 
-        361, /* angle */
-        80,  0, 30, /* knockback growth, fixed knockback, base knockback */
-        3.0 /* Size, changed from 3.0 */, 
-        3.2, 0.0, 0.0, /* position */
-        Some(50.0), Some(0.0), Some(0.0), /* position 2 */
-        1.0, /* hitlag */
-        1.0, /* sdi */
-        *ATTACK_SETOFF_KIND_ON, /* clang rebound (ignore) */
-        *ATTACK_LR_CHECK_F, /* facing restriction (ignore) */
-        false, /* set weight */
-        0, /* shield damage (max 2)*/
-        0.0, /* trip chance */
-        0, /* rehit (for multihits, how long til a hitbox can hit again)*/
-        false, /* reflectable */
-        false, /* absorbable */
-        false, /* flinchless */
-        false, /* disable hitlag */
-        true, /* direct hitbox (true if from the character, false if on weapon)*/
-        *COLLISION_SITUATION_MASK_GA, /* ground or air */
-        *COLLISION_CATEGORY_MASK_ALL, /* hitbits (ignore) */
-        *COLLISION_PART_MASK_ALL, /* collision part (ignore) */
-        false, /* friendly fire */
-        Hash40::new("collision_attr_normal"), /* effect */
-        *ATTACK_SOUND_LEVEL_M, /* sfx volume/level (s, m, or l)*/
-        *COLLISION_SOUND_ATTR_PUNCH, /* sfx type */
-        *ATTACK_REGION_PUNCH
-    ); /* type (mostly for spirits only)*/
-}
-*/
 
 unsafe extern "C" fn game_attackairhi(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
@@ -78,9 +42,13 @@ unsafe extern "C" fn game_attackairhi(agent: &mut L2CAgentBase) {
 }
 
 unsafe extern "C" fn effect_attackairhi(agent: &mut L2CAgentBase) {
+    if macros::is_excute(agent) {
+        ItemModule::set_have_item_visibility(agent.module_accessor, false, 0);
+        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
+    }
     frame(agent.lua_state_agent, 8.0);
     if macros::is_excute(agent) {
-        effect!(agent, *MA_MSC_CMD_EFFECT_AFTER_IMAGE3_ON, Hash40::new("tex_item_killsword1"), Hash40::new("tex_item_killsword2"), 6, Hash40::new("haver"), 0, 1.5, 3, Hash40::new("haver"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1);    }
+        effect!(agent, *MA_MSC_CMD_EFFECT_AFTER_IMAGE3_ON, Hash40::new("tex_item_killsword1"), Hash40::new("tex_item_killsword2"), 6, Hash40::new("stickr"), 0, 1.5, 3, Hash40::new("stickr"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1);    }
     frame(agent.lua_state_agent, 33.0);
     if macros::is_excute(agent) {
         macros::AFTER_IMAGE_OFF(agent, 4);

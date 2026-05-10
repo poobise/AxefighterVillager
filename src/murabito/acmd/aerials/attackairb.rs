@@ -71,7 +71,7 @@ unsafe extern "C" fn game_attackairb(agent: &mut L2CAgentBase) {
 }
 
 unsafe extern "C" fn effect_attackairb(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 14.0);
+    frame(agent.lua_state_agent, 1.0);
     if macros::is_excute(agent) {
         macros::AFTER_IMAGE4_ON_arg29(agent, Hash40::new("tex_murabito_axe1"), Hash40::new("tex_murabito_axe2"), 
         6, Hash40::new("haver"), 0, 
@@ -82,14 +82,14 @@ unsafe extern "C" fn effect_attackairb(agent: &mut L2CAgentBase) {
         1, 0, *EFFECT_AXIS_X, 0, 
         *TRAIL_BLEND_BLEND_SRC_ONE, 101, *TRAIL_CULL_NONE, 1.2, 0.2);
     }
-    frame(agent.lua_state_agent, 24.0);
+    frame(agent.lua_state_agent, 10.0);
     if macros::is_excute(agent) {
         macros::AFTER_IMAGE_OFF(agent, 4);
     }
 }
 
 unsafe extern "C" fn sound_attackairb(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 15.0);
+    frame(agent.lua_state_agent, 3.0);
     if macros::is_excute(agent) {
         macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
     }

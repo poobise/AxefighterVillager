@@ -3,7 +3,8 @@ use {
         lua2cpp::*,
         phx::*,
         app::{sv_animcmd::*, lua_bind::*,AttackDirectionAxis},
-        lib::lua_const::*
+        lib::lua_const::*,
+        hash40
     },
     smashline::*,
     smash_script::*
@@ -41,34 +42,37 @@ unsafe extern "C" fn game_attackairlw(agent: &mut L2CAgentBase) {
     }
 }
 
-unsafe extern "C" fn effect_attackairlw(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 12.0);
+unsafe extern "C" fn effect_speciallw3(agent: &mut L2CAgentBase) {
+    frame(agent.lua_state_agent, 4.0);
     if macros::is_excute(agent) {
-        macros::AFTER_IMAGE4_ON_arg29(agent, Hash40::new("tex_murabito_axe1"), Hash40::new("tex_murabito_axe2"), 6, Hash40::new("haver"), 0, 1.5, 3, Hash40::new("haver"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1, *TRAIL_CULL_NONE, 1.2, 0.2);
-       //effect!(agent, *MA_MSC_CMD_EFFECT_AFTER_IMAGE3_ON, Hash40::new("tex_item_killsword1"), Hash40::new("tex_item_killsword2"), 6, Hash40::new("haver"), 0, 1.5, 3, Hash40::new("haver"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1);
+        //macros::AFTER_IMAGE4_ON_arg29(agent, Hash40::new("tex_murabito_axe1"), Hash40::new("tex_murabito_axe2"), 6, Hash40::new("haver"), 0, 1.5, 3, Hash40::new("haver"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1, *TRAIL_CULL_NONE, 1.2, 0.2);
+        
+        //effect!(agent,*MA_MSC_CMD_EFFECT_AFTER_IMAGE3_ON, Hash40::new("tex_item_killsword1"), Hash40::new("tex_item_killsword2"), 6, Hash40::new("haver"), -1, 1.5, 4, Hash40::new("haver"), 0, 9, 4, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1);
+        effect!(agent,*MA_MSC_CMD_EFFECT_AFTER_IMAGE3_ON, Hash40::new("tex_item_killsword1"), Hash40::new("tex_item_killsword2"), 6, Hash40::new("stickr"), -1, 1.5, 4, Hash40::new("stickr"), 0, 9, 4, true, Hash40::new("null"), Hash40::new("stickr"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1);
+
     }
     frame(agent.lua_state_agent, 19.0);
     if macros::is_excute(agent) {
-        macros::AFTER_IMAGE_OFF(agent, 6);
+        macros::AFTER_IMAGE_OFF(agent, 4);
     }
 }
 
 unsafe extern "C" fn sound_attackairlw(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 12.0);
     if macros::is_excute(agent) {
-        macros::PLAY_SE(agent, Hash40::new("se_common_swing_07"));
-        //macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
+        macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
     }
 }
 
 unsafe extern "C" fn expression_attackairlw(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("haver"), AttackDirectionAxis(*ATTACK_DIRECTION_Z), AttackDirectionAxis(*ATTACK_DIRECTION_Y), AttackDirectionAxis(*ATTACK_DIRECTION_X));
+        ItemModule::set_have_item_visibility(agent.module_accessor, false, 0);
+        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
     }
     frame(agent.lua_state_agent, 8.0);
     if macros::is_excute(agent) {
         ControlModule::set_rumble(agent.module_accessor, Hash40::new("rbkind_nohitl"), 0, false, *BATTLE_OBJECT_ID_INVALID as u32);
-        macros::QUAKE(agent, *CAMERA_QUAKE_KIND_S);
     }
     frame(agent.lua_state_agent, 10.0);
     if macros::is_excute(agent) {
@@ -78,7 +82,7 @@ unsafe extern "C" fn expression_attackairlw(agent: &mut L2CAgentBase) {
 
 pub fn install(agent: &mut smashline::Agent) {
     agent.acmd("game_attackairlw", game_attackairlw, Priority::Default);
-    agent.acmd("effect_attackairlw", effect_attackairlw, Priority::Default);
+    agent.acmd("effect_attackairlw", effect_speciallw3, Priority::Default);
     agent.acmd("sound_attackairlw", sound_attackairlw, Priority::Default);
     agent.acmd("expression_attackairlw", expression_attackairlw, Priority::Default);
 }

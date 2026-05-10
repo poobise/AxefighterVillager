@@ -1,13 +1,8 @@
 use {
     smash::{
-        lua2cpp::*,
-        hash40,
-        phx::*,
-        app::{sv_animcmd::*, lua_bind::*, *},
+        //app::{sv_animcmd::*, lua_bind::*, *},
         lib::{lua_const::*}
     },
-    smash_script::*,
-    smashline::*
 };
 
 mod tilts;
@@ -15,6 +10,7 @@ mod smashes;
 mod aerials;
 mod attackdash;
 mod attackjab;
+mod downspecial;
 
 pub static mut FIGHTER_MURABITO_GENERATE_ARTICLE_SPINAXE: i32 = 21;
 
