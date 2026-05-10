@@ -23,7 +23,7 @@ pub fn main() {
 }
 
 extern "C" fn mods_mounted(_ev: arcropolis_api::Event) {
-    const MARKER_FILE: &str = "murabito.marker";
+    const MARKER_FILE: &str = "AxeFighterVillager.marker";
     let mut lowest_color: i32 = -1;
     let mut marked_slots: Vec<i32> = vec![];
     for x in 0..256 {

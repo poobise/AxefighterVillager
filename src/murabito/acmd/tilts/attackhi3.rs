@@ -29,9 +29,9 @@ unsafe extern "C" fn effect_attackhi3(agent: &mut L2CAgentBase) {
     }
     frame(agent.lua_state_agent, 3.0);
     if macros::is_excute(agent) {
-        effect!(agent,*MA_MSC_CMD_EFFECT_AFTER_IMAGE3_ON, Hash40::new("tex_item_killsword3"), Hash40::new("tex_item_killsword4"), 6, Hash40::new("haver"), 0, 1.5, 3, Hash40::new("haver"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1);
+        effect!(agent,*MA_MSC_CMD_EFFECT_AFTER_IMAGE3_ON, Hash40::new("tex_item_killsword1"), Hash40::new("tex_item_killsword2"), 6, Hash40::new("stickr"), 0, 1.5, 3, Hash40::new("stickr"), 0, 9, 3, true, Hash40::new("null"), Hash40::new("stickr"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1);
     }
-    frame(agent.lua_state_agent, 11.0);
+    frame(agent.lua_state_agent, 12.0);
     if macros::is_excute(agent) {
         macros::AFTER_IMAGE_OFF(agent, 4);
     }

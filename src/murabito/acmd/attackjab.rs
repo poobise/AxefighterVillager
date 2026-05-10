@@ -2,7 +2,7 @@ use {
     smash::{
         lua2cpp::*,
         phx::*,
-        app::{sv_animcmd::*, lua_bind::*},
+        app::{sv_animcmd::*, lua_bind::*,AttackDirectionAxis},
         lib::lua_const::*,
         hash40
     },
@@ -10,42 +10,6 @@ use {
     smash_script::*
 };
 
-/*
-if macros::is_excute(fighter) {
-    macros::ATTACK(fighter, /* dont edit */
-        0, /* id */
-        0, /* part (dont edit)*/
-        Hash40::new("arml"), /* bone */
-        67.0 /* Damage, changed from 12.0 */, 
-        361, /* angle */
-        80,  0, 30, /* knockback growth, fixed knockback, base knockback */
-        3.0 /* Size, changed from 3.0 */, 
-        3.2, 0.0, 0.0, /* position */
-        Some(50.0), Some(0.0), Some(0.0), /* position 2 */
-        1.0, /* hitlag */
-        1.0, /* sdi */
-        *ATTACK_SETOFF_KIND_ON, /* clang rebound (ignore) */
-        *ATTACK_LR_CHECK_F, /* facing restriction (ignore) */
-        false, /* set weight */
-        0, /* shield damage (max 2)*/
-        0.0, /* trip chance */
-        0, /* rehit (for multihits, how long til a hitbox can hit again)*/
-        false, /* reflectable */
-        false, /* absorbable */
-        false, /* flinchless */
-        false, /* disable hitlag */
-        true, /* direct hitbox (true if from the character, false if on weapon)*/
-        *COLLISION_SITUATION_MASK_GA, /* ground or air */
-        *COLLISION_CATEGORY_MASK_ALL, /* hitbits (ignore) */
-        *COLLISION_PART_MASK_ALL, /* collision part (ignore) */
-        false, /* friendly fire */
-        Hash40::new("collision_attr_normal"), /* effect */
-        *ATTACK_SOUND_LEVEL_M, /* sfx volume/level (s, m, or l)*/
-        *COLLISION_SOUND_ATTR_PUNCH, /* sfx type */
-        *ATTACK_REGION_PUNCH
-    ); /* type (mostly for spirits only)*/
-}
-*/
 
 unsafe extern "C" fn game_attack11(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 6.0);
@@ -53,25 +17,21 @@ unsafe extern "C" fn game_attack11(agent: &mut L2CAgentBase) {
         macros::ATTACK(agent, 0, 0, Hash40::new("haver"), 8.0, 357, 20, 0, 60, 5.0, 0.0, 6.5, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_OBJECT);
         macros::ATTACK(agent, 1, 0, Hash40::new("haver"), 8.0, 357, 20, 0, 60, 3.0, 0.0, 1.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_OBJECT);
     }
-    frame(agent.lua_state_agent, 10.0);
+    frame(agent.lua_state_agent, 11.0);
     if macros::is_excute(agent) {
         macros::ATTACK(agent, 0, 0, Hash40::new("haver"), 8.0, 357, 20, 0, 60, 5.0, 0.0, 6.5, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_OBJECT);
         macros::ATTACK(agent, 1, 0, Hash40::new("haver"), 8.0, 357, 20, 0, 60, 3.0, 0.0, 1.0, 0.0, None, None, None, 1.0, 1.0, *ATTACK_SETOFF_KIND_ON, *ATTACK_LR_CHECK_POS, false, 0, 0.0, 0, false, false, false, false, true, *COLLISION_SITUATION_MASK_GA, *COLLISION_CATEGORY_MASK_ALL, *COLLISION_PART_MASK_ALL, false, Hash40::new("collision_attr_cutup"), *ATTACK_SOUND_LEVEL_L, *COLLISION_SOUND_ATTR_CUTUP, *ATTACK_REGION_OBJECT);
     }
-    frame(agent.lua_state_agent, 15.0);
+    frame(agent.lua_state_agent, 19.0);
     if macros::is_excute(agent) {
         AttackModule::clear_all(agent.module_accessor);
     }
 }
 
 unsafe extern "C" fn effect_attack11(agent: &mut L2CAgentBase) {
-    if macros::is_excute(agent) {
-        ItemModule::set_have_item_visibility(agent.module_accessor, false, 0);
-        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
-    }
     frame(agent.lua_state_agent, 6.0);
     if macros::is_excute(agent) {
-        macros::AFTER_IMAGE4_ON_arg29(agent, Hash40::new("tex_murabito_axe1"), Hash40::new("tex_murabito_axe2"), 6, Hash40::new("haver"), 0, 1.5, 3, Hash40::new("haver"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 101, *TRAIL_CULL_NONE, 1.2, 0.2);
+        effect!(agent,*MA_MSC_CMD_EFFECT_AFTER_IMAGE3_ON, Hash40::new("tex_item_killsword1"), Hash40::new("tex_item_killsword2"), 6, Hash40::new("stickr"), 0, 1.5, 3, Hash40::new("stickr"), 0, 9, 3, true, Hash40::new("null"), Hash40::new("stickr"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1);
     }
     frame(agent.lua_state_agent, 18.0);
     if macros::is_excute(agent) {
@@ -88,7 +48,9 @@ unsafe extern "C" fn sound_attack11(agent: &mut L2CAgentBase) {
 
 unsafe extern "C" fn expression_attack11(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
-        AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("haver"), smash::app::AttackDirectionAxis(*ATTACK_DIRECTION_Z), smash::app::AttackDirectionAxis(*ATTACK_DIRECTION_Y), smash::app::AttackDirectionAxis(*ATTACK_DIRECTION_X));
+        AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("haver"), AttackDirectionAxis(*ATTACK_DIRECTION_Z), AttackDirectionAxis(*ATTACK_DIRECTION_Y), AttackDirectionAxis(*ATTACK_DIRECTION_X));
+        ItemModule::set_have_item_visibility(agent.module_accessor, false, 0);
+        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
     }
     frame(agent.lua_state_agent, 8.0);
     if macros::is_excute(agent) {

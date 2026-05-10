@@ -2,8 +2,9 @@ use {
     smash::{
         lua2cpp::*,
         phx::*,
-        app::{sv_animcmd::*, lua_bind::*},
-        lib::lua_const::*
+        app::{sv_animcmd::*, lua_bind::*,AttackDirectionAxis},
+        lib::lua_const::*,
+        hash40
     },
     smashline::*,
     smash_script::*
@@ -30,7 +31,7 @@ unsafe extern "C" fn game_attackdash(agent: &mut L2CAgentBase) {
 unsafe extern "C" fn effect_attackdash(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 7.0);
     if macros::is_excute(agent) {
-        macros::AFTER_IMAGE4_ON_arg29(agent, Hash40::new("tex_murabito_axe1"), Hash40::new("tex_murabito_axe2"), 6, Hash40::new("haver"), 0, 1.5, 3, Hash40::new("haver"), 0, 9.8, 3, true, Hash40::new("null"), Hash40::new("haver"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 101, *TRAIL_CULL_NONE, 1.2, 0.2);
+        effect!(agent,*MA_MSC_CMD_EFFECT_AFTER_IMAGE3_ON, Hash40::new("tex_item_killsword1"), Hash40::new("tex_item_killsword2"), 6, Hash40::new("stickr"), 0.5, 1.5, 3, Hash40::new("stickr"), 0.5, 9, 3, true, Hash40::new("null"), Hash40::new("stickr"), 0, 0, 0, 0, 0, 0, 1, 0, *EFFECT_AXIS_X, 0, *TRAIL_BLEND_BLEND_SRC_ONE, 1);
     }
     frame(agent.lua_state_agent, 13.0);
     if macros::is_excute(agent) {
@@ -47,7 +48,9 @@ unsafe extern "C" fn sound_attackdash(agent: &mut L2CAgentBase) {
 
 unsafe extern "C" fn expression_attackdash(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
-        AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("haver"), smash::app::AttackDirectionAxis(*ATTACK_DIRECTION_Z), smash::app::AttackDirectionAxis(*ATTACK_DIRECTION_Y), smash::app::AttackDirectionAxis(*ATTACK_DIRECTION_X));
+        AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("haver"), AttackDirectionAxis(*ATTACK_DIRECTION_Z), AttackDirectionAxis(*ATTACK_DIRECTION_Y), AttackDirectionAxis(*ATTACK_DIRECTION_X));
+        ItemModule::set_have_item_visibility(agent.module_accessor, false, 0);
+        VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
     }
     frame(agent.lua_state_agent, 8.0);
     if macros::is_excute(agent) {
