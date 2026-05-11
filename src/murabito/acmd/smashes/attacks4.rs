@@ -10,43 +10,6 @@ use {
     smash_script::*
 };
 
-/*
-if macros::is_excute(fighter) {
-    macros::ATTACK(fighter, /* dont edit */
-        0, /* id */
-        0, /* part (dont edit)*/
-        Hash40::new("arml"), /* bone */
-        67.0 /* Damage, changed from 12.0 */, 
-        361, /* angle */
-        80,  0, 30, /* knockback growth, fixed knockback, base knockback */
-        3.0 /* Size, changed from 3.0 */, 
-        3.2, 0.0, 0.0, /* position */
-        Some(50.0), Some(0.0), Some(0.0), /* position 2 */
-        1.0, /* hitlag */
-        1.0, /* sdi */
-        *ATTACK_SETOFF_KIND_ON, /* clang rebound (ignore) */
-        *ATTACK_LR_CHECK_F, /* facing restriction (ignore) */
-        false, /* set weight */
-        0, /* shield damage (max 2)*/
-        0.0, /* trip chance */
-        0, /* rehit (for multihits, how long til a hitbox can hit again)*/
-        false, /* reflectable */
-        false, /* absorbable */
-        false, /* flinchless */
-        false, /* disable hitlag */
-        true, /* direct hitbox (true if from the character, false if on weapon)*/
-        *COLLISION_SITUATION_MASK_GA, /* ground or air */
-        *COLLISION_CATEGORY_MASK_ALL, /* hitbits (ignore) */
-        *COLLISION_PART_MASK_ALL, /* collision part (ignore) */
-        false, /* friendly fire */
-        Hash40::new("collision_attr_normal"), /* effect */
-        *ATTACK_SOUND_LEVEL_M, /* sfx volume/level (s, m, or l)*/
-        *COLLISION_SOUND_ATTR_PUNCH, /* sfx type */
-        *ATTACK_REGION_PUNCH
-    ); /* type (mostly for spirits only)*/
-}
-*/
-
 unsafe extern "C" fn game_attacks4(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
@@ -98,7 +61,7 @@ unsafe extern "C" fn sound_attacks4(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         macros::STOP_SE(agent, Hash40::new("se_common_smash_start_02"));
     }
-    wait(agent.lua_state_agent, 38.0);
+    frame(agent.lua_state_agent, 33.0);
     if macros::is_excute(agent) {
         macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
     }
@@ -114,11 +77,11 @@ unsafe extern "C" fn expression_attacks4(agent: &mut L2CAgentBase) {
         AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("haver"), smash::app::AttackDirectionAxis(*ATTACK_DIRECTION_Z), smash::app::AttackDirectionAxis(*ATTACK_DIRECTION_Y), smash::app::AttackDirectionAxis(*ATTACK_DIRECTION_X));
         slope!(agent, *MA_MSC_CMD_SLOPE_SLOPE, *SLOPE_STATUS_LR);
     }
-    frame(agent.lua_state_agent, 8.0);
+    frame(agent.lua_state_agent, 30.0);
     if macros::is_excute(agent) {
         ControlModule::set_rumble(agent.module_accessor, Hash40::new("rbkind_nohitl"), 0, false, *BATTLE_OBJECT_ID_INVALID as u32);
     }
-    frame(agent.lua_state_agent, 10.0);
+    frame(agent.lua_state_agent, 36.0);
     if macros::is_excute(agent) {
         macros::RUMBLE_HIT(agent, Hash40::new("rbkind_slashl"), 0);
     }
@@ -131,13 +94,24 @@ unsafe extern "C" fn effect_attacks4charge(agent: &mut L2CAgentBase) {
         macros::FOOT_EFFECT(agent, Hash40::new("sys_run_smoke"), Hash40::new("top"), 5, 0, 0, 0, 0, 0, 1, 15, 0, 4, 0, 0, 0, false);
     }
     wait(agent.lua_state_agent, 5.0);
-    macros::EFFECT(agent, Hash40::new("sys_smash_flash_s"), Hash40::new("sword1"), 0, -0.0, 8, 0, 0, 0, 1, 2, 2, 4, 0, 0, 0, true);
+    macros::EFFECT(agent, Hash40::new("sys_smash_flash_s"), Hash40::new("stickr"), 0, -0.0, 8, 0, 0, 0, 1, 2, 2, 4, 0, 0, 0, true);
 }
 
 unsafe extern "C" fn sound_attacks4charge(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 26.0);
+    frame(agent.lua_state_agent, 13.0);
     if macros::is_excute(agent) {
         macros::PLAY_SE(agent, Hash40::new("se_common_smash_start_02"));
+    }
+}
+
+unsafe extern "C" fn expression_attacks4charge(agent: &mut L2CAgentBase) {
+    if macros::is_excute(agent) {
+        slope!(agent, *MA_MSC_CMD_SLOPE_SLOPE, *SLOPE_STATUS_TOP);
+        ControlModule::set_rumble(agent.module_accessor, Hash40::new("rbkind_smashhold1"), 0, true, *BATTLE_OBJECT_ID_INVALID as u32);
+    }
+    frame(agent.lua_state_agent, 61.0);
+    if macros::is_excute(agent) {
+        ControlModule::set_rumble(agent.module_accessor, Hash40::new("rbkind_smashhold2"), 0, true, *BATTLE_OBJECT_ID_INVALID as u32);
     }
 }
 
@@ -148,4 +122,6 @@ pub fn install(agent: &mut smashline::Agent) {
     agent.acmd("expression_attacks4", expression_attacks4, Priority::Default);
     agent.acmd("effect_attacks4charge", effect_attacks4charge, Priority::Default);
     agent.acmd("sound_attacks4charge", sound_attacks4charge, Priority::Default);
+    agent.acmd("expression_attacks4charge", expression_attacks4charge, Priority::Default);
+
 }

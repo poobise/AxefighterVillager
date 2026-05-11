@@ -54,11 +54,11 @@ unsafe extern "C" fn effect_attacklw4(agent: &mut L2CAgentBase) {
 }
 
 unsafe extern "C" fn sound_attacklw4(agent: &mut L2CAgentBase) {
-    frame(agent.lua_state_agent, 30.0);
+    frame(agent.lua_state_agent, 11.0);
     if macros::is_excute(agent) {
         macros::STOP_SE(agent, Hash40::new("se_common_smash_start_02"));
     }
-    wait(agent.lua_state_agent, 38.0);
+    frame(agent.lua_state_agent, 13.0);
     if macros::is_excute(agent) {
         macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
     }
@@ -94,7 +94,7 @@ unsafe extern "C" fn effect_attacklw4charge(agent: &mut L2CAgentBase) {
         macros::FOOT_EFFECT(agent, Hash40::new("sys_run_smoke"), Hash40::new("top"), 5, 0, 0, 0, 0, 0, 1, 15, 0, 4, 0, 0, 0, false);
     }
     wait(agent.lua_state_agent, 5.0);
-    macros::EFFECT(agent, Hash40::new("sys_smash_flash_s"), Hash40::new("sword1"), 0, -0.0, 8, 0, 0, 0, 1, 2, 2, 4, 0, 0, 0, true);
+    macros::EFFECT(agent, Hash40::new("sys_smash_flash_s"), Hash40::new("stickr"), 0, -0.0, 8, 0, 0, 0, 1, 2, 2, 4, 0, 0, 0, true);
 }
 
 unsafe extern "C" fn sound_attacklw4charge(agent: &mut L2CAgentBase) {
