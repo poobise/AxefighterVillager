@@ -2,7 +2,7 @@ use {
     smash::{
         lua2cpp::*,
         phx::*,
-        app::{sv_animcmd::*, lua_bind::*,AttackDirectionAxis},
+        app::{sv_animcmd::*, lua_bind::*},
         lib::lua_const::*,
         hash40
     },
@@ -48,8 +48,8 @@ unsafe extern "C" fn sound_attack11(agent: &mut L2CAgentBase) {
 
 unsafe extern "C" fn expression_attack11(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
-        AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("haver"), AttackDirectionAxis(*ATTACK_DIRECTION_Z), AttackDirectionAxis(*ATTACK_DIRECTION_Y), AttackDirectionAxis(*ATTACK_DIRECTION_X));
-        ItemModule::set_have_item_visibility(agent.module_accessor, false, 0);
+        //AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("haver"), AttackDirectionAxis(*ATTACK_DIRECTION_Z), AttackDirectionAxis(*ATTACK_DIRECTION_Y), AttackDirectionAxis(*ATTACK_DIRECTION_X));
+        //ItemModule::set_have_item_visibility(agent.module_accessor, false, 0);
         VisibilityModule::set_int64(agent.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
     }
     frame(agent.lua_state_agent, 8.0);
@@ -62,9 +62,24 @@ unsafe extern "C" fn expression_attack11(agent: &mut L2CAgentBase) {
     }
 }
 
+unsafe extern "C" fn expression_attack12(_agent: &mut L2CAgentBase) {}
+
+unsafe extern "C" fn jabstatus(fighter: &mut L2CFighterCommon) -> L2CValue {
+    let plopson = smashline::original_status(Main, fighter, *FIGHTER_STATUS_KIND_ATTACK)(fighter);
+    
+    ItemModule::set_have_item_visibility(fighter.module_accessor, false, 0);
+    VisibilityModule::set_int64(fighter.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
+    return plopson;
+}
+
+
 pub fn install(agent: &mut smashline::Agent) {
     agent.acmd("game_attack11", game_attack11, Priority::Default);
     agent.acmd("effect_attack11", effect_attack11, Priority::Default);
     agent.acmd("sound_attack11", sound_attack11, Priority::Default);
     agent.acmd("expression_attack11", expression_attack11, Priority::Default);
+    agent.acmd("expression_attack12", expression_attack12, Priority::Default);
+    agent.acmd("expression_attack11end", expression_attack12, Priority::Default);
+    agent.acmd("expression_attack12end", expression_attack12, Priority::Default);
+    agent.status(Main, *FIGHTER_STATUS_KIND_ATTACK, jabstatus);
 }
