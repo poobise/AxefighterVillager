@@ -65,13 +65,12 @@ unsafe extern "C" fn expression_attack11(agent: &mut L2CAgentBase) {
 unsafe extern "C" fn expression_attack12(_agent: &mut L2CAgentBase) {}
 
 unsafe extern "C" fn jabstatus(fighter: &mut L2CFighterCommon) -> L2CValue {
-    let plopson = smashline::original_status(Main, fighter, *FIGHTER_STATUS_KIND_ATTACK)(fighter);
+    let hi = smashline::original_status(Main, fighter, *FIGHTER_STATUS_KIND_ATTACK)(fighter);
     
-    ItemModule::set_have_item_visibility(fighter.module_accessor, false, 0);
     VisibilityModule::set_int64(fighter.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
-    return plopson;
+    VisibilityModule::set_int64(fighter.module_accessor, hash40("arm") as i64, hash40("arm_normal") as i64);
+    return hi;
 }
-
 
 pub fn install(agent: &mut smashline::Agent) {
     agent.acmd("game_attack11", game_attack11, Priority::Default);
