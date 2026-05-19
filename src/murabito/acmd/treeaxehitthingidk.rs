@@ -1,3 +1,4 @@
+/* 
 
 L2CFighterMurabito::status::SpecialLwDeforest_main_loop
 (L2CFighterMurabito *this,L2CValue *return_value)
@@ -114,3 +115,5 @@ lib::L2CValue::L2CValue((L2CValue *)return_value,0);
 LAB_710001bfd0:
 return;
 }
+
+*/
