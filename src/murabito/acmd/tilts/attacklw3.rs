@@ -9,6 +9,7 @@ use {
     smashline::*,
     smash_script::*
 };
+use super::super::*;
 
 unsafe extern "C" fn game_attacklw3(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 7.0);
@@ -60,9 +61,12 @@ unsafe extern "C" fn expression_attacklw3(agent: &mut L2CAgentBase) {
 
 
 
-pub fn install(agent: &mut smashline::Agent) {
-    agent.acmd("game_attacklw3", game_attacklw3, Priority::Default);
-    agent.acmd("effect_attacklw3", effect_attacklw3, Priority::Default);
-    agent.acmd("sound_attacklw3", sound_attacklw3, Priority::Default);
-    agent.acmd("expression_attacklw3", expression_attacklw3, Priority::Default);
+pub fn install() {
+    Agent::new("murabito")
+    .set_costume(get_costumes())
+    .acmd("game_attacklw3", game_attacklw3, Priority::Default)
+    .acmd("effect_attacklw3", effect_attacklw3, Priority::Default)
+    .acmd("sound_attacklw3", sound_attacklw3, Priority::Default)
+    .acmd("expression_attacklw3", expression_attacklw3, Priority::Default)
+    .install();
 }

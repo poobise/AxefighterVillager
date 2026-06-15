@@ -9,6 +9,7 @@ use {
     smashline::*,
     smash_script::*
 };
+use super::*;
 
 
 unsafe extern "C" fn game_attack11(agent: &mut L2CAgentBase) {
@@ -66,19 +67,25 @@ unsafe extern "C" fn expression_attack12(_agent: &mut L2CAgentBase) {}
 
 unsafe extern "C" fn jabstatus(fighter: &mut L2CFighterCommon) -> L2CValue {
     let hi = smashline::original_status(Main, fighter, *FIGHTER_STATUS_KIND_ATTACK)(fighter);
-    
+    //let poo = smashline::original_status(Main, fighter, *FIGHTER_MURABITO_STATUS_KIND_SPECIAL_LW_DEFOREST_HIT)(fighter);
+
+    //WorkModule::set_flag(fighter.module_accessor, true, FIGHTER_MURABITO_STATUS_SPECIAL_LW_DEFOREST_FLAG_HIT);
+
     VisibilityModule::set_int64(fighter.module_accessor, hash40("item") as i64, hash40("item_axe") as i64);
     VisibilityModule::set_int64(fighter.module_accessor, hash40("arm") as i64, hash40("arm_normal") as i64);
     return hi;
 }
 
-pub fn install(agent: &mut smashline::Agent) {
-    agent.acmd("game_attack11", game_attack11, Priority::Default);
-    agent.acmd("effect_attack11", effect_attack11, Priority::Default);
-    agent.acmd("sound_attack11", sound_attack11, Priority::Default);
-    agent.acmd("expression_attack11", expression_attack11, Priority::Default);
-    agent.acmd("expression_attack12", expression_attack12, Priority::Default);
-    agent.acmd("expression_attack11end", expression_attack12, Priority::Default);
-    agent.acmd("expression_attack12end", expression_attack12, Priority::Default);
-    agent.status(Main, *FIGHTER_STATUS_KIND_ATTACK, jabstatus);
+pub fn install() {
+    Agent::new("murabito")
+    .set_costume(get_costumes())
+    .acmd("game_attack11", game_attack11, Priority::Default)
+    .acmd("effect_attack11", effect_attack11, Priority::Default)
+    .acmd("sound_attack11", sound_attack11, Priority::Default)
+    .acmd("expression_attack11", expression_attack11, Priority::Default)
+    .acmd("expression_attack12", expression_attack12, Priority::Default)
+    .acmd("expression_attack11end", expression_attack12, Priority::Default)
+    .acmd("expression_attack12end", expression_attack12, Priority::Default)
+    .status(Main, *FIGHTER_STATUS_KIND_ATTACK, jabstatus)
+    .install();
 }

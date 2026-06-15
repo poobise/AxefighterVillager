@@ -9,6 +9,7 @@ use {
     smashline::*,
     smash_script::*
 };
+use super::super::*;
 
 unsafe extern "C" fn game_attackairlw(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
@@ -56,14 +57,18 @@ unsafe extern "C" fn effect_speciallw3(agent: &mut L2CAgentBase) {
         macros::AFTER_IMAGE_OFF(agent, 4);
     }
 }
-
+/* 
 unsafe extern "C" fn sound_attackairlw(agent: &mut L2CAgentBase) {
+    frame(agent.lua_state_agent, 9.0);
+    if macros::is_excute(agent) {
+            macros::PLAY_SE(agent, Hash40::new("se_murabito_attackair_l01"));
+    }
     frame(agent.lua_state_agent, 12.0);
     if macros::is_excute(agent) {
         macros::PLAY_SE(agent, Hash40::new("se_common_sword_swing_m"));
     }
 }
-
+*/
 unsafe extern "C" fn expression_attackairlw(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
         AttackModule::set_attack_reference_joint_id(agent.module_accessor, Hash40::new("haver"), AttackDirectionAxis(*ATTACK_DIRECTION_Z), AttackDirectionAxis(*ATTACK_DIRECTION_Y), AttackDirectionAxis(*ATTACK_DIRECTION_X));
@@ -80,9 +85,12 @@ unsafe extern "C" fn expression_attackairlw(agent: &mut L2CAgentBase) {
     }
 }
 
-pub fn install(agent: &mut smashline::Agent) {
-    agent.acmd("game_attackairlw", game_attackairlw, Priority::Default);
-    agent.acmd("effect_attackairlw", effect_speciallw3, Priority::Default);
-    agent.acmd("sound_attackairlw", sound_attackairlw, Priority::Default);
-    agent.acmd("expression_attackairlw", expression_attackairlw, Priority::Default);
+pub fn install() {
+    Agent::new("murabito")
+    .set_costume(get_costumes())
+    .acmd("game_attackairlw", game_attackairlw, Priority::Default)
+    .acmd("effect_attackairlw", effect_speciallw3, Priority::Default)
+    //.acmd("sound_attackairlw", sound_attackairlw, Priority::Default)
+    .acmd("expression_attackairlw", expression_attackairlw, Priority::Default)
+    .install();
 }

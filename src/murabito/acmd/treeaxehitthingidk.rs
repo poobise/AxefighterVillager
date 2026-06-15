@@ -1,5 +1,4 @@
 /* 
-
 L2CFighterMurabito::status::SpecialLwDeforest_main_loop
 (L2CFighterMurabito *this,L2CValue *return_value)
 
@@ -30,71 +29,80 @@ L2CValue aLStack112 [16];
 L2CValue aLStack96 [16];
 L2CValue aLStack80 [16];
 
-lib::L2CValue::L2CValue(aLStack96,0);
 let aLStack96 = 0;
-lib::L2CValue::L2CValue(aLStack112,0);
 let aLStack112 = 0;
+let bVar1 = StatusModule::is_changing(agent.module_accessor);
 
-bVar1 = app::lua_bind::StatusModule__is_changing_impl(this->moduleAccessor);
 lib::L2CValue::L2CValue(aLStack80,(bool)(bVar1 & 1));
-lib::L2CValue::operator_(aLStack96,aLStack80);
-lib::L2CValue::L2CValue(aLStack80,false);
+
+let aLStack96 = alStack80;
+let aLStack80 = false;
+
 uVar4 = lib::L2CValue::operator__(aLStack96,aLStack80);
 if ((uVar4 & 1) != 0) {
-bVar1 = app::lua_bind::CancelModule__is_enable_cancel_impl(this->moduleAccessor);
-lib::L2CValue::L2CValue(aLStack128,(bool)(bVar1 & 1));
-lib::L2CValue::L2CValue(aLStack80,true);
-uVar4 = lib::L2CValue::operator__(aLStack128,aLStack80);
-if ((uVar4 & 1) != 0) {
-lib::L2CValue::L2CValue(aLStack160,false);
-lua2cpp::L2CFighterCommon::sub_wait_ground_check_common(this,(L2CValue)0x60);
-lib::L2CValue::L2CValue(aLStack80,false);
-uVar4 = lib::L2CValue::operator__(aLStack144,aLStack80);
-if ((uVar4 & 1) == 0) {
-}
-else {
-lua2cpp::L2CFighterCommon::sub_air_check_fall_common(this);
-lib::L2CValue::L2CValue(aLStack80,false);
-uVar4 = lib::L2CValue::operator__(aLStack176,aLStack80);
-if ((uVar4 & 1) != 0) goto LAB_710001bcf8;
-}
-lib::L2CValue::L2CValue((L2CValue *)return_value,1);
-goto LAB_710001bfd0;
-}
-LAB_710001bcf8:
-lib::L2CValue::L2CValue(aLStack128,_FIGHTER_MURABITO_STATUS_SPECIAL_LW_DEFOREST_FLAG_HIT);
-iVar3 = lib::L2CValue::as_integer(aLStack128);
-bVar1 = app::lua_bind::WorkModule__is_flag_impl(this->moduleAccessor,iVar3);
-lib::L2CValue::L2CValue(aLStack80,(bool)(bVar1 & 1));
-bVar2 = lib::L2CValue::operator_cast_to_bool(aLStack80);
-if ((bVar2 & 1U) != 0) {
-lib::L2CValue::L2CValue(aLStack192,_FIGHTER_MURABITO_STATUS_KIND_SPECIAL_LW_DEFOREST_HIT);
-lib::L2CValue::L2CValue(aLStack208,false);
-lua2cpp::L2CFighterBase::change_status(this,(L2CValue)0x40,(L2CValue)0x30);
-lib::L2CValue::L2CValue((L2CValue *)return_value,1);
-goto LAB_710001bfd0;
-}
-bVar1 = app::lua_bind::MotionModule__is_end_impl(this->moduleAccessor);
-lib::L2CValue::L2CValue(aLStack80,(bool)(bVar1 & 1));
-bVar2 = lib::L2CValue::operator_cast_to_bool(aLStack80);
-if ((bVar2 & 1U) != 0) {
-this_00 = (L2CValue *)lib::L2CValue::operator__((L2CValue *)&this->globalTable,0x16);
-lib::L2CValue::L2CValue(aLStack80,_SITUATION_KIND_GROUND);
-uVar4 = lib::L2CValue::operator__(this_00,aLStack80);
-if ((uVar4 & 1) == 0) {
-lib::L2CValue::L2CValue(aLStack80,_FIGHTER_STATUS_KIND_FALL);
-lib::L2CValue::operator_(aLStack112,aLStack80);
-}
-else {
-lib::L2CValue::L2CValue(aLStack80,_FIGHTER_STATUS_KIND_WAIT);
-lib::L2CValue::operator_(aLStack112,aLStack80);
-}
-lib::L2CValue::L2CValue(aLStack224,aLStack112);
-lib::L2CValue::L2CValue(aLStack240,false);
-lua2cpp::L2CFighterBase::change_status(this,(L2CValue)0x20,(L2CValue)0x10);
-lib::L2CValue::L2CValue((L2CValue *)return_value,1);
-goto LAB_710001bfd0;
-}
+    bVar1 = CancelModule::is_enable_cancel(agent.module_accessor);
+
+    lib::L2CValue::L2CValue(aLStack128,(bool)(bVar1 & 1));
+
+    aLStack80 = true;
+
+    uVar4 = lib::L2CValue::operator__(aLStack128,aLStack80);
+
+    if ((uVar4 & 1) != 0) {
+        let aLStack160 = false;
+
+        lua2cpp::L2CFighterCommon::sub_wait_ground_check_common(this,(L2CValue)0x60);
+
+        let aLStack80 = false;
+
+        uVar4 = lib::L2CValue::operator__(aLStack144,aLStack80);
+
+        if ((uVar4 & 1) == 0) {} else {
+            lua2cpp::L2CFighterCommon::sub_air_check_fall_common(this);
+
+            let aLStack80 = false;
+
+            uVar4 = lib::L2CValue::operator__(aLStack176,aLStack80);
+
+            if ((uVar4 & 1) != 0) goto LAB_710001bcf8;
+        }
+        lib::L2CValue::L2CValue((L2CValue *)return_value,1);
+        goto LAB_710001bfd0;
+    }
+    LAB_710001bcf8:
+    lib::L2CValue::L2CValue(aLStack128,_FIGHTER_MURABITO_STATUS_SPECIAL_LW_DEFOREST_FLAG_HIT);
+    iVar3 = lib::L2CValue::as_integer(aLStack128);
+    bVar1 = app::lua_bind::WorkModule__is_flag_impl(this->moduleAccessor,iVar3);
+    lib::L2CValue::L2CValue(aLStack80,(bool)(bVar1 & 1));
+    bVar2 = lib::L2CValue::operator_cast_to_bool(aLStack80);
+    if ((bVar2 & 1U) != 0) {
+    lib::L2CValue::L2CValue(aLStack192,_FIGHTER_MURABITO_STATUS_KIND_SPECIAL_LW_DEFOREST_HIT);
+    lib::L2CValue::L2CValue(aLStack208,false);
+    lua2cpp::L2CFighterBase::change_status(this,(L2CValue)0x40,(L2CValue)0x30);
+    lib::L2CValue::L2CValue((L2CValue *)return_value,1);
+    goto LAB_710001bfd0;
+    }
+    bVar1 = app::lua_bind::MotionModule__is_end_impl(this->moduleAccessor);
+    lib::L2CValue::L2CValue(aLStack80,(bool)(bVar1 & 1));
+    bVar2 = lib::L2CValue::operator_cast_to_bool(aLStack80);
+    if ((bVar2 & 1U) != 0) {
+    this_00 = (L2CValue *)lib::L2CValue::operator__((L2CValue *)&this->globalTable,0x16);
+    lib::L2CValue::L2CValue(aLStack80,_SITUATION_KIND_GROUND);
+    uVar4 = lib::L2CValue::operator__(this_00,aLStack80);
+    if ((uVar4 & 1) == 0) {
+    lib::L2CValue::L2CValue(aLStack80,_FIGHTER_STATUS_KIND_FALL);
+    lib::L2CValue::operator_(aLStack112,aLStack80);
+    }
+    else {
+    lib::L2CValue::L2CValue(aLStack80,_FIGHTER_STATUS_KIND_WAIT);
+    lib::L2CValue::operator_(aLStack112,aLStack80);
+    }
+    lib::L2CValue::L2CValue(aLStack224,aLStack112);
+    lib::L2CValue::L2CValue(aLStack240,false);
+    lua2cpp::L2CFighterBase::change_status(this,(L2CValue)0x20,(L2CValue)0x10);
+    lib::L2CValue::L2CValue((L2CValue *)return_value,1);
+    goto LAB_710001bfd0;
+    }
 }
 lib::L2CValue::L2CValue(aLStack272,aLStack96);
 lib::L2CValue::L2CValue(aLStack80,FIGHTER_STATUS_WORK_ID_UTILITY_WORK_INT_MOT_KIND);

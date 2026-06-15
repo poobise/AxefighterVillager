@@ -9,6 +9,7 @@ use {
     smashline::*,
     smash_script::*
 };
+use super::super::*;
 
 unsafe extern "C" fn game_attacks4(agent: &mut L2CAgentBase) {
     if macros::is_excute(agent) {
@@ -60,6 +61,10 @@ unsafe extern "C" fn sound_attacks4(agent: &mut L2CAgentBase) {
     frame(agent.lua_state_agent, 30.0);
     if macros::is_excute(agent) {
         macros::STOP_SE(agent, Hash40::new("se_common_smash_start_02"));
+    }
+    frame(agent.lua_state_agent, 33.0);
+    if macros::is_excute(agent) {
+        macros::PLAY_SE(agent, Hash40::new("se_murabito_smash_s01"));
     }
     frame(agent.lua_state_agent, 34.0);
     if macros::is_excute(agent) {
@@ -115,13 +120,16 @@ unsafe extern "C" fn expression_attacks4charge(agent: &mut L2CAgentBase) {
     }
 }
 
-pub fn install(agent: &mut smashline::Agent) {
-    agent.acmd("game_attacks4", game_attacks4, Priority::Default);
-    agent.acmd("effect_attacks4", effect_attacks4, Priority::Default);
-    agent.acmd("sound_attacks4", sound_attacks4, Priority::Default);
-    agent.acmd("expression_attacks4", expression_attacks4, Priority::Default);
-    agent.acmd("effect_attacks4charge", effect_attacks4charge, Priority::Default);
-    agent.acmd("sound_attacks4charge", sound_attacks4charge, Priority::Default);
-    agent.acmd("expression_attacks4charge", expression_attacks4charge, Priority::Default);
+pub fn install() {
+    Agent::new("murabito")
+    .set_costume(get_costumes())
+    .acmd("game_attacks4", game_attacks4, Priority::Default)
+    .acmd("effect_attacks4", effect_attacks4, Priority::Default)
+    .acmd("sound_attacks4", sound_attacks4, Priority::Default)
+    .acmd("expression_attacks4", expression_attacks4, Priority::Default)
+    .acmd("effect_attacks4charge", effect_attacks4charge, Priority::Default)
+    .acmd("sound_attacks4charge", sound_attacks4charge, Priority::Default)
+    .acmd("expression_attacks4charge", expression_attacks4charge, Priority::Default)
+    .install();
 
 }

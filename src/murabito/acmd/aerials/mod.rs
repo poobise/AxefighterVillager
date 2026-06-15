@@ -4,10 +4,10 @@ mod attackairb;
 mod attackairhi;
 mod attackairlw;
 
-pub fn install(agent: &mut smashline::Agent) {
-    attackairn::install(agent);
-    attackairf::install(agent);
-    attackairb::install(agent);
-    attackairhi::install(agent);
-    attackairlw::install(agent);
+pub fn install() {
+    attackairn::install();
+    attackairf::install();
+    attackairb::install();
+    attackairhi::install();
+    attackairlw::install();
 }
